@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://tomatok.github.io/img/Protocol%20buffers_7.png">
 <meta property="og:image" content="https://tomatok.github.io/img/Protocol%20buffers_8.png">
 <meta property="og:image" content="https://tomatok.github.io/img/Protocol%20buffers_9.png">
-<meta property="og:updated_time" content="2017-09-09T05:39:26.000Z">
+<meta property="og:updated_time" content="2017-09-09T05:48:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TomatoK的技术博客">
 <meta name="twitter:description" content="Protocol BuffersWhatProtocol buffers are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how">
@@ -323,12 +323,11 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto2&quot;;</div><div class="line"></div><div class="line">message Person</div><div class="line">&#123;</div><div class="line">required int32 id = 1;</div><div class="line">required string username = 2;</div><div class="line">optional string phone = 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<pre><code>&gt; 先测试一下编译器程序能否成功将Person.proto协议文件成    功生成oc代码：
-&gt;
-&gt; * 将Person.proto存储在`/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/`目录下
-&gt; * 终端 cd 到 `/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/` 目录下
-&gt; * 执行 `./protobuf/src/protoc Person.proto --objc_out=./` 命令，会在输出目录下，生成 **Person.pbobjc.h\Person.pbobjc.m**
-&gt; * 测试成功
+<pre><code>* 先测试一下编译器程序能否成功将Person.proto协议文件成    功生成oc代码：
+    - 将Person.proto存储在`/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/`目录下
+    - 终端 cd 到 `/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/` 目录下
+    - 执行 `./protobuf/src/protoc Person.proto --objc_out=./` 命令，会在输出目录下，生成 **Person.pbobjc.h\Person.pbobjc.m**
+    - 测试成功
 </code></pre><ol>
 <li>把 <strong><em>Person.pbobjc.h</em></strong>、<strong><em>Person.pbobjc.m</em></strong> 两文件拖入工程中，这是项目还无法运行，需要把ProtocolBuffers的一些依赖代码放入项目中，这里介绍一种添加子工程的方式。</li>
 <li><p>将<code>./objectivec/ProtocolBuffers_iOS.xcodeproj</code>工程拖入项目中。</p>
@@ -355,8 +354,10 @@
 </ul>
 </li>
 </ol>
-<p>将此脚本文件拷贝至项目根目录<br>然后在项目中，配置Run Scipt：<code>./build_proto.sh</code>。</p>
-<h3 id="执行第4步时一些编译问题记录"><a href="#执行第4步时一些编译问题记录" class="headerlink" title="执行第4步时一些编译问题记录"></a>执行第4步时一些编译问题记录</h3><h6 id="如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误"><a href="#如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误" class="headerlink" title="如果遇到 autogen.sh: line 48: autoreconf: command not found 错误"></a>如果遇到 autogen.sh: line 48: autoreconf: command not found 错误</h6><ul>
+<pre><code>- 将此脚本文件拷贝至项目根目录，然后在项目中，配置Run Scipt：`./build_proto.sh`。
+
+    ![MacDown Screenshot](/img/Protocol buffers_13.png)
+</code></pre><h3 id="执行第4步时一些编译问题记录"><a href="#执行第4步时一些编译问题记录" class="headerlink" title="执行第4步时一些编译问题记录"></a>执行第4步时一些编译问题记录</h3><h6 id="如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误"><a href="#如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误" class="headerlink" title="如果遇到 autogen.sh: line 48: autoreconf: command not found 错误"></a>如果遇到 autogen.sh: line 48: autoreconf: command not found 错误</h6><ul>
 <li><p>可以使用 MacPort 安装对应工具。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo port install autoconf</div></pre></td></tr></table></figure>
 </li>
