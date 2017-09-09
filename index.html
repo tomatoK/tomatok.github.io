@@ -311,7 +311,8 @@
       
         
           
-            <h1 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h1><h3 id="What"><a href="#What" class="headerlink" title="What"></a>What</h3><p>Protocol buffers are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. more: <a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="external">https://developers.google.com/protocol-buffers/</a></p>
+            <h1 id="Protocol-Buffers"><a href="#Protocol-Buffers" class="headerlink" title="Protocol Buffers"></a>Protocol Buffers</h1><h3 id="What"><a href="#What" class="headerlink" title="What"></a>What</h3><p>Protocol buffers are Google’s language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. You define how you want your data to be structured once, then you can use special generated source code to easily write and read your structured data to and from a variety of data streams and using a variety of languages. </p>
+<p>more: <a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="external">https://developers.google.com/protocol-buffers/</a></p>
 <h3 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h3><p>除了官方介绍的更小更快更简单的优点以外，google还针对不同的语言实现了Data-&gt;Model，多端可以共享一份Protocol Buffers文件。</p>
 <h3 id="How"><a href="#How" class="headerlink" title="How"></a>How</h3><h4 id="objc工程"><a href="#objc工程" class="headerlink" title="objc工程"></a>objc工程</h4><ol>
 <li>准备编译前先确定已经安装了 xcode commandline tools。<code>xcode-select --install</code>这个命令可以启动安装。</li>
@@ -320,38 +321,42 @@
 <li>执行<code>./protobuf/objectivec/DevTools/full_mac_build.sh</code>该脚本会自动编译 <strong>protobuf</strong> 的全部代码。编译成功，会生成编译器程序 <strong><em>(path:./protobuf/src/protoc)</em></strong> 。</li>
 <li><p>使用文本编辑器 (<strong><em>eg. Sublime</em></strong>) 编写下面的测试协议文件 <strong>Person.proto</strong>：</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto2&quot;;</div><div class="line"></div><div class="line">message Person</div><div class="line">&#123;</div><div class="line">required int32 id = 1;</div><div class="line">required string username = 2;</div><div class="line">optional string phone = 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* 先测试一下编译器程序能否成功将Person.proto协议文件成	功生成oc代码：</div><div class="line">	- 将Person.proto存储在/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/目录下</div><div class="line">	- 终端 cd 到 /Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/目录下</div><div class="line">	- 执行 ./protobuf/src/protoc Person.proto --objc_out=./ 命令，会在输出目录下，生成Person.pbobjc.h\Person.pbobjc.m</div><div class="line">	- 测试成功</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<ol>
+<pre><code>&gt; 先测试一下编译器程序能否成功将Person.proto协议文件成    功生成oc代码：
+&gt;
+&gt; * 将Person.proto存储在`/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/`目录下
+&gt; * 终端 cd 到 `/Users/用户名/ProtocolBuffersDemo/Objc/ProtocolBuffersObjcDemo/` 目录下
+&gt; * 执行 `./protobuf/src/protoc Person.proto --objc_out=./` 命令，会在输出目录下，生成 **Person.pbobjc.h\Person.pbobjc.m**
+&gt; * 测试成功
+</code></pre><ol>
 <li>把 <strong><em>Person.pbobjc.h</em></strong>、<strong><em>Person.pbobjc.m</em></strong> 两文件拖入工程中，这是项目还无法运行，需要把ProtocolBuffers的一些依赖代码放入项目中，这里介绍一种添加子工程的方式。</li>
 <li><p>将<code>./objectivec/ProtocolBuffers_iOS.xcodeproj</code>工程拖入项目中。</p>
-<p> <img src="./6.png" alt="MacDown Screenshot"></p>
+<p> <img src="/img/Protocol buffers_6.png" alt="MacDown Screenshot"></p>
 </li>
 <li><p>把 <strong>ProtocolBuffers(ProtocolBuffers_iOS)</strong> 加入项目的 <strong>Target dependencies</strong> 列表。</p>
-<p> <img src="./7.png" alt="MacDown Screenshot"></p>
+<p> <img src="/img/Protocol buffers_7.png" alt="MacDown Screenshot"></p>
 </li>
 <li><p>把 <strong>libProtocolBuffers.a</strong> 加入项目的 <strong>Link Binary With Libraries</strong> 列表。</p>
-<p> <img src="./8.png" alt="MacDown Screenshot"></p>
+<p> <img src="/img/Protocol buffers_8.png" alt="MacDown Screenshot"></p>
 </li>
 <li><p>把 <code>${SRCROOT}/protobuf/objectivec</code> 和 <code>${SRCROOT}/protobuf/objectivec/google/protobuf</code> 加入项目 <strong>Header Search Paths</strong> 里。</p>
 </li>
 <li><p>修改 <code>Person.pbobj.m</code> 的 <strong>Compiler Flags</strong> 为 <code>-fno-objc-arc</code>。</p>
-<p><img src="./9.png" alt="MacDown Screenshot"></p>
+<p><img src="/img/Protocol buffers_9.png" alt="MacDown Screenshot"></p>
 </li>
 <li><p>编译 <strong>success</strong>。</p>
 </li>
 <li><p>还有一种便捷的做法，让项目在每次运行时，自动生成新的 <strong>Person.pbobjc.h\Person.pbobjc.m</strong></p>
 <ul>
-<li>新建脚本文件 <strong>build_proto.sh</strong></li>
+<li><p>新建脚本文件 <strong>build_proto.sh</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">file=Person.proto</div><div class="line">./protobuf/src/protoc $file --objc_out=.</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">file=Person.proto</div><div class="line">./protobuf/src/protoc $file --objc_out=.</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>将此脚本文件拷贝至项目根目录<br>然后在项目中，配置Run Scipt：<code>./build_proto.sh</code>。</p>
-<p>###执行第4步时一些编译问题记录</p>
-<p>######如果遇到 autogen.sh: line 48: autoreconf: command not found 错误</p>
-<ul>
+<h3 id="执行第4步时一些编译问题记录"><a href="#执行第4步时一些编译问题记录" class="headerlink" title="执行第4步时一些编译问题记录"></a>执行第4步时一些编译问题记录</h3><h6 id="如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误"><a href="#如果遇到-autogen-sh-line-48-autoreconf-command-not-found-错误" class="headerlink" title="如果遇到 autogen.sh: line 48: autoreconf: command not found 错误"></a>如果遇到 autogen.sh: line 48: autoreconf: command not found 错误</h6><ul>
 <li><p>可以使用 MacPort 安装对应工具。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo port install autoconf</div></pre></td></tr></table></figure>
 </li>
@@ -359,8 +364,7 @@
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install autoconf</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>######如果遇到 autoreconf: failed to run aclocal: No such file or directory 错误。</p>
-<ul>
+<h6 id="如果遇到-autoreconf-failed-to-run-aclocal-No-such-file-or-directory-错误。"><a href="#如果遇到-autoreconf-failed-to-run-aclocal-No-such-file-or-directory-错误。" class="headerlink" title="如果遇到 autoreconf: failed to run aclocal: No such file or directory 错误。"></a>如果遇到 autoreconf: failed to run aclocal: No such file or directory 错误。</h6><ul>
 <li><p>可以使用 MacPort 安装对应工具。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo port install automake</div></pre></td></tr></table></figure>
 </li>
@@ -368,8 +372,7 @@
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install automake</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>######如果遇到 undefined macro: AC_PROG_LIBTOOL 错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">configure.ac:30: error: possibly undefined macro: AC_PROG_LIBTOOL</div><div class="line">If this token and others are legitimate, please use m4_pattern_allow.</div><div class="line">See the Autoconf documentation.</div><div class="line">autoreconf: /usr/local/Cellar/autoconf/2.69/bin/autoconf failed with exit status: 1</div></pre></td></tr></table></figure>
+<h6 id="如果遇到-undefined-macro-AC-PROG-LIBTOOL-错误"><a href="#如果遇到-undefined-macro-AC-PROG-LIBTOOL-错误" class="headerlink" title="如果遇到 undefined macro: AC_PROG_LIBTOOL 错误"></a>如果遇到 undefined macro: AC_PROG_LIBTOOL 错误</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">configure.ac:30: error: possibly undefined macro: AC_PROG_LIBTOOL</div><div class="line">If this token and others are legitimate, please use m4_pattern_allow.</div><div class="line">See the Autoconf documentation.</div><div class="line">autoreconf: /usr/local/Cellar/autoconf/2.69/bin/autoconf failed with exit status: 1</div></pre></td></tr></table></figure>
 <ul>
 <li><p>安装 libtool</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo port install libtool</div></pre></td></tr></table></figure>
@@ -379,7 +382,7 @@
 </li>
 </ul>
 <p>更详细的编译过程参加官方文档：<a href="https://github.com/google/protobuf/blob/master/src/README.md)" target="_blank" rel="external">https://github.com/google/protobuf/blob/master/src/README.md)</a></p>
-<p>####swift工程<br>Swift官方实现了对Protocol Buffers的支持, 详见<br><a href="https://github.com/apple/swift-protobuf" target="_blank" rel="external">https://github.com/apple/swift-protobuf</a>。</p>
+<h4 id="swift工程"><a href="#swift工程" class="headerlink" title="swift工程"></a>swift工程</h4><p>Swift官方实现了对Protocol Buffers的支持, 详见<br><a href="https://github.com/apple/swift-protobuf" target="_blank" rel="external">https://github.com/apple/swift-protobuf</a>。</p>
 <p>也有第三方的实现，详细的操作可以见这篇博文<br><a href="http://www.jianshu.com/p/2753630cd015" target="_blank" rel="external">http://www.jianshu.com/p/2753630cd015</a></p>
 
           
